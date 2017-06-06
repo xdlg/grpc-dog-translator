@@ -1,0 +1,33 @@
+// Proto file for the gRPC example. See readme.
+
+syntax = "proto3";
+
+service Translator {
+
+    // Single request, single response
+    rpc Translate(DogWord) returns (EnglishExpression) {}
+
+    // Single request, stream response
+    rpc GetAllWords(Empty) returns (stream DogWord) {}
+
+    // Stream request, single response
+    rpc CountShortWords(stream DogWord) returns (WordCount) {}
+
+    // Stream request, stream response
+    rpc TranslateOnTheFly(stream DogWord) returns (stream EnglishExpression) {}
+
+}
+
+message Empty {}
+
+message DogWord {
+    string word = 1;
+}
+
+message EnglishExpression {
+    string exp = 1;
+}
+
+message WordCount {
+    uint32 total = 1;
+}
